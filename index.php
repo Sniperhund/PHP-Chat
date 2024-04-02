@@ -7,6 +7,9 @@
         <script src="cookie.js"></script>
         <script defer>
             $(document).ready(function() {
+                if (getCookie("username"))
+                    window.location.replace("/Chat/username.php")
+
                 function fetchNewMessages() {
                     $.ajax({
                         url: 'getMessages.php?channel=' + getCookie("channel"),
