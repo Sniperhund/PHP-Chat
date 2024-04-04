@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Sign up</title>
+        <link rel="stylesheet" href="./style.css">
+        <link rel="stylesheet" href="./auth.css">
+        <script src="cookie.js"></script>
+        <script>
+            function newChannelCreated(event) {
+                event.preventDefault()
+
+                const form = event.target
+                const formData = new FormData(form)
+
+                fetch(form.action, {
+                    method: 'POST',
+                    body: formData
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok')
+                        }
+                        return response.json()
+                    })
+                    .then(responseJson => {
+                        setCookie("access_token", responseJson[0].access_token)
+
+                        window.location.replace("/Chat/index.php")
+                    })
+                    .catch(error => {
+                        console.error('There was a problem with the fetch operation:', error)
+                    })
+            }
+        </script>
+    </head>
+    <body>
+        <main>
+            <form action="api/createUser.php" method="post" class="input" onsubmit="return newChannelCreated(event)">
+                <h1>Sign up</h1>
+                <div>
+                    <label for="username">Username:</label><br>
+                    <input type="text" id="username" name="username" required><br>
+                    <label for="password">Password:</label><br>
+                    <input type="password" id="password" name="password" required><br>
+                </div>
+                <button type="submit">Submit</button>
+                <a href="/Chat/signin.html">Sign in instead?</a>
+            </form>
+        </main>
+    </body>
+</html>

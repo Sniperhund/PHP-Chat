@@ -8,13 +8,15 @@
             require "database.php";
 
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                $username = $_POST['username'];
                 $message = $_POST['message'];
                 $channel = $_POST['channel'];
+                $access_token = $_POST['access-token'];
 
                 connect();
 
-                insertMessage($username, $message, $channel);
+                error_log("Token: $access_token");
+
+                insertMessage($access_token, $message, $channel);
             }
         ?>
     </body>

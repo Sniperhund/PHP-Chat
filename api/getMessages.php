@@ -4,7 +4,7 @@
 
     if(isset($_GET['channel'])) {
         $channel = $_GET['channel'];
-        $sql = "SELECT * FROM messages WHERE channel = '$channel'";
+        $sql = "SELECT * FROM `messages` WHERE channel_id = '$channel'";
         $result = $GLOBALS["conn"]->query($sql);
 
         if ($result->num_rows > 0) {
@@ -15,7 +15,7 @@
                                 </div>";
             }
         } else {
-            echo "0 results";
+            echo "This is empty, maybe you should send a message";
         }
     } else {
         echo "Channel parameter not provided";
